@@ -202,20 +202,22 @@ $if(title)$
 $endif$
 
 $if(author)$
-% one way
-\author{$for(author)$$author$$sep$ \and $endfor$}
 
-% another way
-% \author{
-%     $for(author)$
-%         \authorblockN{$author.name$}
-%         \authorblockA{%
-%             $author.affiliation$ \\
-%             $author.location$ \\
-%             $author.email$}
-%         $sep$ \and
-%     $endfor$
-% }
+$if(complex-author-mode)$
+\author{
+    $for(author)$
+        \authorblockN{$author.name$}
+        \authorblockA{%
+            $author.affiliation$ \\
+            $author.location$ \\
+            $author.email$}
+        $sep$ \and
+    $endfor$
+}
+$else$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+
 $endif$
 
 
@@ -252,16 +254,9 @@ $if(toc)$
 
 $endif$
 
-
-$if(alignment)$
-\begin{$alignment$}
-$endif$
-
 $body$
 
-%$if(alignment)$
-\end{$alignment$}
-$endif$
-
+\bibliographystyle{IEEEtran}
+\bibliography{../references}
 
 \end{document}

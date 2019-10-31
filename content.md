@@ -3,6 +3,7 @@ title:  'Markdown to \LaTeX: A Tool'
 author:
 - Jingyi Chen
 - Another Author
+complex-author-mode: false
 abstract: |
   This is the abstract.
 
@@ -57,3 +58,5 @@ Test code section:
 ```python
 print('Hi')
 ```
+
+Test citation: \cite{citation1}

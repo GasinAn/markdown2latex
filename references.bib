@@ -1,0 +1,106 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                               %
+%               LATEX BIBLIOGRAPHY DATABASE                     %
+%                                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Partial listing of entry types:
+%   ARTICLE: author, title, journal, year
+%       volume, number, pages, month, note
+%   BOOK: author, title, publisher, year
+%       volume, series, address, edition, month, note
+%   INBOOK: author, title, chapter and/or pages, publisher, year
+%       volume, series, address, edition, month, note
+%   INPROCEEDINGS: author, title, booktitle, publisher, year
+%       editor, chapter, pages, address, month, note
+%   MASTERSTHESIS: author, title, school, year
+%       address, month, note
+%   PHDTHESIS: same as mastersthesis
+%   TECHREPORT: author, title, school, year
+%       type, number, address, month, note
+%   INCOLLECTION: author, title, booktitle, year
+%       editor, chapter, pages, address, month, note
+%   MISC:
+%       author, title, howpublished, month, year, note
+%
+% Usage in text:
+%    \cite{keyword}
+%    \nocite{keyword} - to put entry not explicitly cited in text
+%                       into Bibliography
+%
+% After running latex on "main.tex", a file "main.aux" is produced.
+% Run "bibtex main". Bibtex takes this main.aux file and produces a
+% LaTeX source file with the references. Running LaTeX again
+% will put the right crossreferences in the text. Run LaTeX on
+% "main.tex" until it stops giving warnings about references.
+%
+% \bibliographystyle{} styles: plain, unsrt, alpha, abbrv.
+% Surround capital letters which you will always want capitalized in
+% braces.
+% ex:   TITLE = "The {S}hannon Sampling Theorem --- Its Various
+%                Extensions and Applications: A Tutorial Review",
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% abbreviations:
+
+@string{jsac    = "IEEE J.\ Select.\ Areas Commun."}
+@string{tassp   = "IEEE Trans.\ Acoust., Speech, Signal Processing"}
+@string{tac	= "IEEE Trans.\ Automat.\ Contr."}
+@string{taes	= "IEEE Trans.\ Aerospace Elec.\ Syst."}
+@string{tsp	= "IEEE Trans.\ Signal Processing"}
+@string{tbroad	= "IEEE Trans.\ Broadcasting"}
+@string{tcas    = "IEEE Trans.\ Circuits and Systems"}
+@string{tcasi   = "IEEE Trans.\ Circuits and Systems {I}"}
+@string{tcasii  = "IEEE Trans.\ Circuits and Systems {II}"}
+@string{tcomm   = "IEEE Trans.\ Commun."}
+@string{tcommt   = "IEEE Trans.\ Commun.\ Technol."}
+@string{tcomms   = "IEEE Trans.\ Commun.\ Syst."}
+@string{timage = "IEEE Trans.\ Image Processing"}
+@string{tinfo	= "IEEE Trans.\ Inform.\ Theory"}
+@string{tbe	= "IEEE Trans.\ Biomed.\ Eng."}
+@string{tmm	= "IEEE Trans.\ Multimedia"}
+@string{tmi	= "IEEE Trans.\ on Medical Imaging"}
+@string{tpami   = "IEEE Trans.\ Pattern Anal.\ Machine Intell."}
+@string{tsmc    = "IEEE Trans.\ Syst., Man, Cybern."}
+@string{tc      = "IEEE Trans.\ Comput."}
+@string{icassp	= "Proc.\ Int.\ Conf.\ Acoust.\ Speech, Signal Processing"}
+@string{icip	= "Proc.\ Int.\ Conf.\ Image Processing"}
+@string{isit	= "Proc.\ Int.\ Symp.\ Inform.\ Theory"}
+@string{cdc	= "Proc.\ Int.\ Conf.\ Dec.\ Contr."}
+@string{dspw    = "Proc.\ Digital Signal Processing Workshop"}
+@string{pieee   = "Proc.\ IEEE"}
+@string{mcomm	= "IEEE Commun.\ Mag."}
+@string{msp	= "IEEE Signal Proc.\ Mag."}
+@string{cpam	= "Commun. Pure Appl.\ Math."}
+@string{siamr	= "SIAM Rev."}
+@string{ams     = "Trans.\ Amer.\ Math.\ Soc."}
+@string{siamr	= "SIAM Rev."}
+@string{prl	= "Phys.\ Rev.\ Lett."}
+@string{pra	= "Phys.\ Rev.\ A"}
+@string{gcom    = "Proc.\ IEEE GLOBECOM"}
+@string{infocomm    = "Proc.\ IEEE INFOCOMM"}
+@string{tvt     = "IEEE Trans.\ Vehic.\ Technol."}
+@string{tnet    = "IEEE/ACM Trans.\ Networking"}
+@string{el      = "Electron.\ Lett."}
+@string{icc     = "Proc.\ Int.\ Conf.\ Commun."}
+@string{vtc     = "Proc.\ Vehic.\ Tech.\ Soc.\ Conf."}
+@string{bstj    = "Bell Syst.\ Tech.\ J."}
+@string{bltj    = "Bell Labs.\ Tech.\ J."}
+@string{jasa    = "J.\ Acoust.\ Soc.\ Am."}
+@string{ett     = "Euro.\ Trans.\ on Telecomm.\ and Related Technol."}
+@string{dcc	= "Proc.\ Data\ Compression\ Conf."}
+@string{ic      = "Inform.\ and Contr."}
+@string{zwg     = "Z.~Wahrscheinlichkeitsth.~Verw.~Gebiete"}
+@string{ppi     = "Prob.~Peredachi Informatsii"}
+
+
+
+@inproceedings{citation1,
+	title={Test title},
+	author={Tom},
+	pages={1--2},
+	year={2019},
+}
