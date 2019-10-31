@@ -1,13 +1,21 @@
 %!TEX TS-program = xelatex
 \documentclass[10pt,conference]{../styles/IEEEtran}
 
-% Symbols:
-% Pandoc imports the extensive `amsmath` collection of symbols
-% for typesetting ordinary math.
-\usepackage{amsmath}
-% if you use exotic symbols you need to import specific packages, eg. for
-% electrical engineering diagrams, musical notation, exotic currency symbols,
-% the unspeakable rites of freemasonry etc.
+\usepackage{epsfig}
+\usepackage{amssymb} 
+\usepackage[tbtags]{amsmath} 
+\usepackage{graphics,eepic,epic}
+\usepackage{latexsym}
+%\usepackage{spacing}
+\usepackage{euscript}
+\usepackage{subfigure}
+\usepackage{graphics,eepic,epic,psfrag}
+
+\input{../styles/gww_defs}
+\input{../styles/gww_chars}
+\input{../styles/defs}
+
+% ========== below for the 1st personal template. ===============
 
 % `babel`:
 % The `babel` package, among other things, lets you determine what
@@ -30,7 +38,7 @@
 \usepackage[flushmargin]{footmisc}
 % \usepackage[hang,flushmargin]{footmisc}
 
-% ========== So much for my personal template. ===============
+% ========== So much for the 1st personal template. ===============
 
 % Everything that follows is copied from the pandoc default template:
 % I will interpolate a few comments, the comments that are in
@@ -189,15 +197,28 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
-% Title, authors, date.
-% If you specified title authors and date at the start of
-% your pandoc-markdown file, pandoc knows the 'values' of the
-% variables: title authors date and fills them in.
-
 $if(title)$
 \title{$title$}
 $endif$
-\author{$for(author)$$author$$sep$\\$endfor$}
+
+$if(author)$
+% one way
+\author{$for(author)$$author$$sep$ \and $endfor$}
+
+% another way
+% \author{
+%     $for(author)$
+%         \authorblockN{$author.name$}
+%         \authorblockA{%
+%             $author.affiliation$ \\
+%             $author.location$ \\
+%             $author.email$}
+%         $sep$ \and
+%     $endfor$
+% }
+$endif$
+
+
 $if(date)$
 \date{$date$}
 $endif$

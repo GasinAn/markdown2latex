@@ -1,14 +1,8 @@
 ---
 title:  'Markdown to \LaTeX: A Tool'
 author:
-- name: Jingyi Chen
-  affilication: my affilication
-  location: my location
-  email: 117010016@link.cuhk.edu.cn
-- name: Another Author
-  affilication: my affilication
-  location: my location
-  email: hello@world.com
+- Jingyi Chen
+- Another Author
 abstract: |
   This is the abstract.
 
