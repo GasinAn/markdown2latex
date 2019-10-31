@@ -1,6 +1,18 @@
 ---
-title: Hello Title
-author: Jingyi Chen
+title:  'Markdown to \LaTeX: A Tool'
+author:
+- name: Jingyi Chen
+  affilication: my affilication
+  location: my location
+  email: 117010016@link.cuhk.edu.cn
+- name: Another Author
+  affilication: my affilication
+  location: my location
+  email: hello@world.com
+abstract: |
+  This is the abstract.
+
+  It consists of two paragraphs.
 ---
 
 # Test Section
