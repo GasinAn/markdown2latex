@@ -73,8 +73,12 @@ def register_handlers(dict_cls_func: Dict):
 
 
 def parse_and_remove_sibling_config_blockquote(elem, doc):
-    blockquote = elem.parent.next
-    if not isinstance(blockquote, pf.BlockQuote):
+    blockquote = None
+    for s in (elem.parent.next, elem.next):
+        if isinstance(s, pf.BlockQuote):
+            blockquote = s
+
+    if blockquote is None:
         return {}
 
     latex_str = elem_to_latex_str(blockquote.content, doc)
@@ -115,6 +119,15 @@ def random_str(n):
     return ''.join(random.choices(string.ascii_uppercase, k=n))
 
 
+def list_add_separator(arr, sep):
+    ans = []
+    for i, item in enumerate(arr):
+        if i > 0:
+            ans.append(sep)
+        ans.append(item)
+    return ans
+
+
 ################################################
 
 def image_generate_config(elem, doc, cfg_provided):
@@ -127,22 +140,22 @@ def image_generate_config(elem, doc, cfg_provided):
 
 def table_generate_config(elem: pf.Table, doc, cfg_provided):
     cfg = dict(**cfg_provided)
-    # dict_cond_set(cfg, 'caption', no_caption)
+    dict_cond_set(cfg, 'caption', '')
     dict_cond_set(cfg, 'label', random_str(8))
 
-    dict_cond_set(cfg, 'tabular_params', 'c' * elem.cols)
+    tabular_params = '@{}' + 'l' * elem.cols + '@{}'
 
-    # s = ''
-    # s.replace(r'\begin{longtable}[]', r'\begin{table}')
-    # s.replace(r'\end{longtable}', r'\end{center}\end{table}')
-    # s.replace(r'\toprule', r'\caption{$caption$}\label{$label$}\begin{center}\begin{tabular}')
-    # s.replace(r'\midrule', r'')
-    # s.replace(r'\bottomrule', r'')
-    # s.replace(r'\endhead', r'')
+    raw_latex_str: str = elem_to_latex_str([elem], doc)
+    lines = raw_latex_str.split('\n')
+    lines = lines[lines.index(r'\toprule'):lines.index(r'\bottomrule')+1]
+    lines = [l.replace(r'\tabularnewline', r'\\') for l in lines]
+    lines = [l for l in lines if l != r'\endhead']
+    # lines = [l.replace(r'\midrule', r'\hline') for l in lines]
+    # lines = list_add_separator(lines, r'\hline')
+    content = '\n'.join(lines)
 
-    latex_str = elem_to_latex_str([elem], doc)
-    print(latex_str)
-    # cfg['content'] = TODO
+    dict_cond_set(cfg, 'tabular_params', tabular_params)
+    cfg['content'] = content
 
     return cfg
 
