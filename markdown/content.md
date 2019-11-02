@@ -123,3 +123,6 @@ Secondly & $1.23 \pm 0.01$ is the answer \\
 Test label and immediate reference: \ref{sec:labeling}.
 However, since the section is unnumbered, this will not show anything.
 
+# Chinese Test
+
+中文测试。
