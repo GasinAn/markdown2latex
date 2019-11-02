@@ -66,7 +66,11 @@ Test code section:
 print('Hi')
 ```
 
+# Citation
+
 Test citation: \cite{citation1}
+
+# Image 
 
 Test normal image \ref{fig:first}.
 
