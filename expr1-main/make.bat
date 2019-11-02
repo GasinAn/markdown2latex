@@ -1,2 +1,2 @@
-pandoc --template=template.tex --from=markdown --output=build/main.tex content.md --highlight-style tango
+pandoc --template=template.tex --from=markdown --output=build/main.tex markdown/content.md --highlight-style tango
 REM highlight-style: https://tex.stackexchange.com/questions/466425/pandoc-to-pdf-not-putting-a-shaded-block-around-language-specific-code-sections

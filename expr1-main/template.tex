@@ -202,7 +202,6 @@ $if(title)$
 $endif$
 
 $if(author)$
-
 $if(complex-author-mode)$
 \author{
     $for(author)$
@@ -217,7 +216,6 @@ $if(complex-author-mode)$
 $else$
 \author{$for(author)$$author$$sep$ \and $endfor$}
 $endif$
-
 $endif$
 
 
@@ -244,10 +242,16 @@ $endif$
 
 \begin{document}
 
-
 $if(title)$
 \maketitle
 $endif$
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
 
 $if(toc)$
 \tableofcontents

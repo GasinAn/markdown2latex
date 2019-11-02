@@ -60,3 +60,17 @@ print('Hi')
 ```
 
 Test citation: \cite{citation1}
+
+// TODO image label & ref
+Test image:
+
+![some text for the image](../images/hello_image.png)
+
+Test table: TODO not supported yet.
+
+<!-- | Key | Value |
+| ----------- | ----------- |
+| Tom | Chen |
+| Hello | World | -->
+
+End of test.
