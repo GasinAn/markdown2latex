@@ -15,6 +15,16 @@
 \input{../styles/gww_chars}
 \input{../styles/defs}
 
+% ========== bugfix ===============
+
+% https://tex.stackexchange.com/questions/350907/error-latex-error-somethings-wrong-perhaps-a-missing-item
+\makeatletter
+\def\endthebibliography{%
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+\makeatother
+
 % ========== below for the 1st personal template. ===============
 
 % `babel`:

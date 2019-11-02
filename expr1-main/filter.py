@@ -1,5 +1,7 @@
 import io
+import random
 import re
+import string
 import subprocess
 from functools import partial
 from pathlib import Path
@@ -35,7 +37,7 @@ def json_str_to_latex(json_str):
     return p.stdout
 
 
-def postprocess_latex_newlines(latex_str: str):
+def newlines_double_to_single(latex_str: str):
     in_lines = latex_str.split('\n')
     out_lines = ['']
     for i in range(len(in_lines)):
@@ -48,8 +50,7 @@ def postprocess_latex_newlines(latex_str: str):
 def elem_to_latex_str(elems, doc):
     elems_doc = construct_doc_from_elems(elems, doc)
     json_str = doc_to_json_str(elems_doc)
-    raw_latex_str = json_str_to_latex(json_str)
-    latex_str = postprocess_latex_newlines(raw_latex_str)
+    latex_str = json_str_to_latex(json_str)
     return latex_str
 
 
@@ -77,6 +78,7 @@ def parse_and_remove_sibling_config_blockquote(elem, doc):
         return {}
 
     latex_str = elem_to_latex_str(blockquote.content, doc)
+    latex_str = newlines_double_to_single(latex_str)
     kv_pair = parse_simple_key_value_pairs(latex_str)
 
     # remove
@@ -97,11 +99,11 @@ def dict_cond_set(d, k, v):
         d[k] = v
 
 
-def handle_elem_with_config_blockquote(elem, doc, f_generate_config, template_tex_str):
+def handle_elem_with_config_blockquote(elem, doc, f_generate_config, template_tex_str, f_gen_out):
     cfg_provided = parse_and_remove_sibling_config_blockquote(elem, doc)
-    cfg_full = f_generate_config(elem, cfg_provided)
+    cfg_full = f_generate_config(elem, doc, cfg_provided)
     str_gen = replace_var(template_tex_str, cfg_full)
-    return [latex_inline(str_gen)]
+    return [f_gen_out(str_gen)]
 
 
 def read_file(p):
@@ -109,9 +111,13 @@ def read_file(p):
         return ''.join(f.readlines())
 
 
+def random_str(n):
+    return ''.join(random.choices(string.ascii_uppercase, k=n))
+
+
 ################################################
 
-def image_generate_config(elem, cfg_provided):
+def image_generate_config(elem, doc, cfg_provided):
     cfg = dict(**cfg_provided)
     cfg['url'] = elem.url
     dict_cond_set(cfg, 'width', '3in')
@@ -119,9 +125,37 @@ def image_generate_config(elem, cfg_provided):
     return cfg
 
 
+def table_generate_config(elem: pf.Table, doc, cfg_provided):
+    cfg = dict(**cfg_provided)
+    # dict_cond_set(cfg, 'caption', no_caption)
+    dict_cond_set(cfg, 'label', random_str(8))
+
+    dict_cond_set(cfg, 'tabular_params', 'c' * elem.cols)
+
+    # s = ''
+    # s.replace(r'\begin{longtable}[]', r'\begin{table}')
+    # s.replace(r'\end{longtable}', r'\end{center}\end{table}')
+    # s.replace(r'\toprule', r'\caption{$caption$}\label{$label$}\begin{center}\begin{tabular}')
+    # s.replace(r'\midrule', r'')
+    # s.replace(r'\bottomrule', r'')
+    # s.replace(r'\endhead', r'')
+
+    latex_str = elem_to_latex_str([elem], doc)
+    print(latex_str)
+    # cfg['content'] = TODO
+
+    return cfg
+
+
 action_main = register_handlers({
     pf.Image: partial(handle_elem_with_config_blockquote,
-                      f_generate_config=image_generate_config, template_tex_str=read_file('template_image.tex'))
+                      f_gen_out=latex_inline,
+                      f_generate_config=image_generate_config,
+                      template_tex_str=read_file('template_image.tex')),
+    pf.Table: partial(handle_elem_with_config_blockquote,
+                      f_gen_out=latex_block,
+                      f_generate_config=table_generate_config,
+                      template_tex_str=read_file('template_table.tex')),
 })
 
 
