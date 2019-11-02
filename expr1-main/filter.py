@@ -1,6 +1,7 @@
 import io
 import re
 import subprocess
+from functools import partial
 from pathlib import Path
 from typing import Dict
 
@@ -61,6 +62,15 @@ def parse_simple_key_value_pairs(lines: str):
     return d
 
 
+def register_handlers(dict_cls_func: Dict):
+    def core(elem, doc):
+        for cls, func in dict_cls_func.items():
+            if isinstance(elem, cls):
+                return func(elem, doc)
+
+    return core
+
+
 def parse_and_remove_sibling_config_blockquote(elem, doc):
     blockquote = elem.parent.next
     if not isinstance(blockquote, pf.BlockQuote):
@@ -87,7 +97,21 @@ def dict_cond_set(d, k, v):
         d[k] = v
 
 
-def generate_image_config(elem: pf.Image, cfg_provided):
+def handle_elem_with_config_blockquote(elem, doc, f_generate_config, template_tex_str):
+    cfg_provided = parse_and_remove_sibling_config_blockquote(elem, doc)
+    cfg_full = f_generate_config(elem, cfg_provided)
+    str_gen = replace_var(template_tex_str, cfg_full)
+    return [latex_inline(str_gen)]
+
+
+def read_file(p):
+    with open(str(p)) as f:
+        return ''.join(f.readlines())
+
+
+################################################
+
+def image_generate_config(elem, cfg_provided):
     cfg = dict(**cfg_provided)
     cfg['url'] = elem.url
     dict_cond_set(cfg, 'width', '3in')
@@ -95,21 +119,13 @@ def generate_image_config(elem: pf.Image, cfg_provided):
     return cfg
 
 
-def handle_image(elem: pf.Image, doc: pf.Doc):
-    cfg_provided = parse_and_remove_sibling_config_blockquote(elem, doc)
-    cfg = generate_image_config(elem, cfg_provided)
-    str_template = ''.join(open('template_image.tex').readlines())
-    str_gen = replace_var(str_template, cfg)
-    return [latex_inline(str_gen)]
-
-
-def action_main(elem, doc: pf.Doc):
-    if isinstance(elem, pf.Image):
-        return handle_image(elem, doc)
+action_main = register_handlers({
+    pf.Image: partial(handle_elem_with_config_blockquote,
+                      f_generate_config=image_generate_config, template_tex_str=read_file('template_image.tex'))
+})
 
 
 def action_remove_elems(elem, doc):
-    # remove it
     if elem in doc.global_elem_to_remove:
         return []
 
@@ -119,12 +135,12 @@ def prepare(doc):
 
 
 def finalize(doc):
-    # print('doc.global_elem_to_remove', doc.global_elem_to_remove)
     del doc.global_elem_to_remove
 
 
 def main(doc=None):
-    return pf.run_filters([action_main, action_remove_elems], prepare, finalize, doc=doc)
+    return pf.run_filters([action_main, action_remove_elems],
+                          prepare, finalize, doc=doc)
 
 
 if __name__ == '__main__':
