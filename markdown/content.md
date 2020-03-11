@@ -14,9 +14,11 @@ abstract: |
 
 Welcome to *markdown2latex*! Using this tool, you can happily write documents in Markdown (probably using fantastic editors like Typora). In one click, you will generate \LaTeX code and pdf.
 
+This document is written in Markdown (and rendered into \LaTeX pdf using this tool), so this can be viewed as a sample.
+
 # How to use it?
 
-This tool is still in early development (originally used by myself to generate assignment submission pdfs), so feel free to submit issues and PRs.
+This tool is still in early development (originally used by myself to generate assignment submission pdfs), so feel free to submit issues and PRs, or contact me directly (since I may have encountered the problem before).
 
 * Write your document in `/markdown/content.md`.
 * Put your image in `/images/`.
@@ -26,21 +28,23 @@ This tool is still in early development (originally used by myself to generate a
   * Personally, I suggest open a command line window, type `make.bat`, and enter. Thus, you can see command outputs and errors.
 * Since the syntax of Markdown and LaTeX are so different, it is possible that the tex file will contain errors and cannot compile. In this case, just look at the tex file, edit your *markdown* file, re-run the `make.bat`, and see whether it becomes better. (Do *not* edit the tex file itself, since it is like an "intermediate build artifact".)
 
-# Test Section
+# Sample
 
-## Test Subsection
+In this section, we will see many things that this tool can do (of course not limited to these).
+
+## Test Subection
 
 ### Test Subsubsection
 
 Hello, world!
 
-# Bold and Italic
+## Bold and Italic
 
 Test **bold words**. Test *italic words*. Test ***bold and italic words***. 
 
-# Math
+## Math
 
-Test inline math: $\forall g \in G$ we have \LaTeX​.
+Test inline math: $\frac{{\rm d}e^x}{{\rm d}x} = e^x$
 
 Test block math:
 
@@ -48,11 +52,11 @@ $$
 y = \sum_{i=1}^{N} a_i x^i
 $$
 
-# Embedded \LaTeX
+## Embedded \LaTeX
 
 Test inline latex things: hi \LaTeX
 
-# Lists
+## Lists
 
 Test number list:
 
@@ -72,7 +76,7 @@ Test unordered list:
     * Subnumber Z
 * Item C
 
-# Code
+## Code
 
 Test inline code: `print` is a function of `Python`.
 
@@ -82,11 +86,11 @@ Test code section:
 print('Hi')
 ```
 
-# Citation
+## Citation
 
 Test citation: \cite{citation1}
 
-# Image 
+## Image 
 
 Test normal image \ref{fig:first}.
 
@@ -96,12 +100,12 @@ Test normal image \ref{fig:second}.
 
 ![](../images/second.png)
 
-> width: 10in
+> width: 0.5in
 >
-> caption: Notice we change the width. This is the caption sentence for this image. There is some math $y=\sin x^2$, and some \LaTeX commands.
+> caption: Notice we change the width (manually set to *0.5in*). This is the caption sentence for this image. There is some math $y=\sin x^2$, and some \LaTeX commands.
 
 
-# Table
+## Table
 
 Following is a markdown table: \ref{tab:markdown}.
 
@@ -131,11 +135,11 @@ Secondly & $1.23 \pm 0.01$ is the answer \\
 \end{center}
 \end{table}
 
-# Labeling Section {#sec:labeling}
+## Labeling Section {#sec:labeling}
 
 Test label and immediate reference: \ref{sec:labeling}.
 However, since the section is unnumbered, this will not show anything.
 
-# Chinese Test
+## Chinese
 
-中文测试
+Uncomment `\usepackage[UTF8]{ctex}` in the template to use Chinese.
