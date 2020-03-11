@@ -11,9 +11,10 @@
 \usepackage{subfigure}
 \usepackage{graphics,eepic,epic,psfrag}
 \usepackage{booktabs}
+\usepackage{listings}
 
 % chinese
-\usepackage[UTF8]{ctex}
+% \usepackage[UTF8]{ctex}
 
 \input{../styles/gww_defs}
 \input{../styles/gww_chars}
@@ -40,8 +41,8 @@
 % Margins, etc:
 % the `geometry` package makes for convenient adjusting of margins, which is what
 % you asked about.  Of course it can do much more, even make coffee for you:
-\usepackage{geometry}
-\geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+% \usepackage{geometry}
+% \geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
 % so if you just keep a copy of this template in the directory you are working in, you
 % can adjust the margins by going into this file and messing with the margins.
 % the syntax is very unforgiving, but permits 3cm and 2.5in and some other things.
@@ -60,17 +61,17 @@
 
 % Paragraph format:
 % Pandoc prefers unindented paragraphs in the European style:
-\setlength{\parindent}{0pt}
+% \setlength{\parindent}{0pt}
 %  ... with paragraph breaks marked by a slight lengthening of
 % the space between paragraphs:
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
+% \setlength{\parskip}{6pt plus 2pt minus 1pt}
 
 % fix https://tex.stackexchange.com/questions/257418/error-tightlist-converting-md-file-into-pdf-using-pandoc/408474
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 % Page format:
-\pagestyle{plain}
+% \pagestyle{plain}
 % The default `plain` pagestyle just numbers the pages,
 % whereas
 % \pagestyle{empty}

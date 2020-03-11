@@ -10,6 +10,22 @@ abstract: |
   It consists of two paragraphs.
 ---
 
+# What is this?
+
+Welcome to *markdown2latex*! Using this tool, you can happily write documents in Markdown (probably using fantastic editors like Typora). In one click, you will generate \LaTeX code and pdf.
+
+# How to use it?
+
+This tool is still in early development (originally used by myself to generate assignment submission pdfs), so feel free to submit issues and PRs.
+
+* Write your document in `/markdown/content.md`.
+* Put your image in `/images/`.
+* By running `make.bat`, you will compile md to tex file, and compile tex to pdf file. The output is in `build/main.tex`.
+  * You need to install `Pandoc` for the first conversion, and `latexmk` for the second.
+  * Another way is to comment out the `latexmk ...` command in the `make.bat`. Then the command only generates tex file. Then, you can happily open the `main.tex` file in your tex editor (e.g. TexStudio or Atom), and then compile tex into pdf by the editor itself.
+  * Personally, I suggest open a command line window, type `make.bat`, and enter. Thus, you can see command outputs and errors.
+* Since the syntax of Markdown and LaTeX are so different, it is possible that the tex file will contain errors and cannot compile. In this case, just look at the tex file, edit your *markdown* file, re-run the `make.bat`, and see whether it becomes better. (Do *not* edit the tex file itself, since it is like an "intermediate build artifact".)
+
 # Test Section
 
 ## Test Subsection
@@ -24,7 +40,7 @@ Test **bold words**. Test *italic words*. Test ***bold and italic words***.
 
 # Math
 
-Test inline math: $\forall g \in G$.
+Test inline math: $\forall g \in G$ we have \LaTeX​.
 
 Test block math:
 
@@ -80,12 +96,9 @@ Test normal image \ref{fig:second}.
 
 ![](../images/second.png)
 
-> width: 1.2in
-> 
-> caption: Notice we change the width.
-> This is the caption sentence for this image.
-> There is some math $y=\sin x^2$, and some \LaTeX commands.
-> 
+> width: 10in
+>
+> caption: Notice we change the width. This is the caption sentence for this image. There is some math $y=\sin x^2$, and some \LaTeX commands.
 
 
 # Table
@@ -125,4 +138,4 @@ However, since the section is unnumbered, this will not show anything.
 
 # Chinese Test
 
-中文测试。
+中文测试

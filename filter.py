@@ -135,12 +135,13 @@ def image_generate_config(elem, doc, cfg_provided):
     cfg['url'] = elem.url
     dict_cond_set(cfg, 'width', '3in')
     dict_cond_set(cfg, 'label', f"fig:{Path(cfg['url']).stem}")
+    dict_cond_set(cfg, 'caption', "No caption.")
     return cfg
 
 
 def table_generate_config(elem: pf.Table, doc, cfg_provided):
     cfg = dict(**cfg_provided)
-    dict_cond_set(cfg, 'caption', '')
+    dict_cond_set(cfg, 'caption', 'No caption.')
     dict_cond_set(cfg, 'label', random_str(8))
 
     tabular_params = '@{}' + 'l' * elem.cols + '@{}'
