@@ -148,7 +148,7 @@ def table_generate_config(elem: pf.Table, doc, cfg_provided):
 
     raw_latex_str: str = elem_to_latex_str([elem], doc)
     lines = raw_latex_str.split('\n')
-    lines = lines[lines.index(r'\toprule'):lines.index(r'\bottomrule')+1]
+    lines = lines[lines.index(r'\toprule'):lines.index(r'\bottomrule') + 1]
     lines = [l.replace(r'\tabularnewline', r'\\') for l in lines]
     lines = [l for l in lines if l != r'\endhead']
     # lines = [l.replace(r'\midrule', r'\hline') for l in lines]
@@ -159,18 +159,6 @@ def table_generate_config(elem: pf.Table, doc, cfg_provided):
     cfg['content'] = content
 
     return cfg
-
-
-action_main = register_handlers({
-    pf.Image: partial(handle_elem_with_config_blockquote,
-                      f_gen_out=latex_inline,
-                      f_generate_config=image_generate_config,
-                      template_tex_str=read_file('template_image.tex')),
-    pf.Table: partial(handle_elem_with_config_blockquote,
-                      f_gen_out=latex_block,
-                      f_generate_config=table_generate_config,
-                      template_tex_str=read_file('template_table.tex')),
-})
 
 
 def action_remove_elems(elem, doc):
@@ -186,10 +174,17 @@ def finalize(doc):
     del doc.global_elem_to_remove
 
 
-def main(doc=None):
-    return pf.run_filters([action_main, action_remove_elems],
-                          prepare, finalize, doc=doc)
+def run(template_dir: Path, input_stream=None, output_stream=None):
+    action_main = register_handlers({
+        pf.Image: partial(handle_elem_with_config_blockquote,
+                          f_gen_out=latex_inline,
+                          f_generate_config=image_generate_config,
+                          template_tex_str=read_file(template_dir / 'template_image.tex')),
+        pf.Table: partial(handle_elem_with_config_blockquote,
+                          f_gen_out=latex_block,
+                          f_generate_config=table_generate_config,
+                          template_tex_str=read_file(template_dir / 'template_table.tex')),
+    })
 
-
-if __name__ == '__main__':
-    main()
+    return pf.run_filters([action_main, action_remove_elems], prepare, finalize,
+                          input_stream=input_stream, output_stream=output_stream)

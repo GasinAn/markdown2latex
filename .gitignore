@@ -1,2 +1,4 @@
-build/**
+example/build/**
 .idea
+*.pyc
+.DS_Store
