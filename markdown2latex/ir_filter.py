@@ -57,7 +57,8 @@ def elem_to_latex_str(elems, doc):
 def parse_simple_key_value_pairs(lines: str):
     d = dict()
     for line in lines.split('\n'):
-        m = re.match(r'^(\w+):(.+)$', line)
+        m = re.match(r'^([a-zA-Z0-9\-]+):(.+)$', line)
+        # print(f'hi {line} {m}')
         if m is not None:
             d[m.group(1)] = m.group(2).lstrip()
     return d
@@ -88,6 +89,7 @@ def parse_and_remove_sibling_config_blockquote(elem, doc):
     # remove
     doc.global_elem_to_remove.append(blockquote)
 
+    # print(f'parse_and_remove_sibling_config_blockquote {blockquote} {latex_str} {kv_pair}')
     return kv_pair
 
 
@@ -131,17 +133,21 @@ def list_add_separator(arr, sep):
 ################################################
 
 def image_generate_config(elem, doc, cfg_provided):
+    double_column = bool(cfg_provided.get('double-column', '0'))
+
     cfg = dict(**cfg_provided)
     cfg['url'] = elem.url
-    dict_cond_set(cfg, 'width', '3in')
+    dict_cond_set(cfg, 'type', 'figure*' if double_column else 'figure')
+    dict_cond_set(cfg, 'width', r'\textwidth' if double_column else '3in')
     dict_cond_set(cfg, 'label', f"fig:{Path(cfg['url']).stem}")
-    dict_cond_set(cfg, 'caption', "No caption.")
+    dict_cond_set(cfg, 'caption', "")
+    print(f'cfg_provided={cfg_provided} cfg={cfg}')
     return cfg
 
 
 def table_generate_config(elem: pf.Table, doc, cfg_provided):
     cfg = dict(**cfg_provided)
-    dict_cond_set(cfg, 'caption', 'No caption.')
+    dict_cond_set(cfg, 'caption', '')
     dict_cond_set(cfg, 'label', random_str(8))
 
     tabular_params = '@{}' + 'l' * elem.cols + '@{}'
