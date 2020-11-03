@@ -43,7 +43,7 @@ def newlines_double_to_single(latex_str: str):
     for i in range(len(in_lines)):
         if in_lines[i] == '':
             out_lines.append('')
-        out_lines[-1] += in_lines[i]
+        out_lines[-1] += (' ' if out_lines[-1] != '' else '') + in_lines[i]
     return '\n'.join(out_lines)
 
 
