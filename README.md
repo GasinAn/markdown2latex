@@ -1,1 +1,1 @@
-See [`markdown/hello_world.md`](markdown/hello_world.md)
+See [`example/markdown/hello_world.md`](example/markdown/hello_world.md)
