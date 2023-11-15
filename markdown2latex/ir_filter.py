@@ -135,7 +135,7 @@ def table_generate_config(elem: pf.Table, doc, cfg_provided):
 
     raw_latex_str: str = elem_to_latex_str([elem], doc)
     lines = raw_latex_str.split('\n')
-    lines = lines[lines.index(r'\toprule'):lines.index(r'\bottomrule') + 1]
+    lines = lines[lines.index(r'\toprule\noalign{}'):lines.index(r'\bottomrule\noalign{}')+1]
     lines = [l.replace(r'\tabularnewline', r'\\') for l in lines]
     lines = [l for l in lines if l != r'\endhead']
     # lines = [l.replace(r'\midrule', r'\hline') for l in lines]
