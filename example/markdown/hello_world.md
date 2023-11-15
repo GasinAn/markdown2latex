@@ -12,7 +12,7 @@ abstract: |
 
 # What is this?
 
-Welcome to *markdown2latex*! Using this tool, you can happily write documents in Markdown (probably using fantastic editors like Typora), then you can convert them to \LaTeX code and PDF.
+Welcome to *markdown2latex*! Using this tool, you can happily write documents in Markdown (probably using fantastic editors like Typora, or earthy editors like VS Code), then you can convert them to \LaTeX code and PDF.
 
 This document is written in Markdown (and rendered into \LaTeX PDF using this tool), so this can be viewed as a sample.
 
