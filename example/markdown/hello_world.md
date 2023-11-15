@@ -2,7 +2,7 @@
 title:  'Markdown to \LaTeX: A Tool'
 author:
 - Jingyi Chen
-- Another Author
+- Jiachen An
 complex-author-mode: false
 abstract: |
   This is the abstract.
@@ -12,21 +12,27 @@ abstract: |
 
 # What is this?
 
-Welcome to *markdown2latex*! Using this tool, you can happily write documents in Markdown (probably using fantastic editors like Typora). In one click, you will generate \LaTeX code and pdf.
+Welcome to *markdown2latex*! Using this tool, you can happily write documents in Markdown (probably using fantastic editors like Typora), then you can convert them to \LaTeX code and PDF.
 
-This document is written in Markdown (and rendered into \LaTeX pdf using this tool), so this can be viewed as a sample.
+This document is written in Markdown (and rendered into \LaTeX PDF using this tool), so this can be viewed as a sample.
 
 # How to use it?
 
-This tool is still in early development (originally used by myself to generate assignment submission pdfs), so feel free to submit issues and PRs, or contact me directly (since I may have encountered the problem before).
+First, you need to install python package `pandoc` and `panflute`.
 
-* Write your document in `/markdown/content.md`.
-* Put your image in `/images/`.
-* By running `make.bat`, you will compile md to tex file, and compile tex to pdf file. The output is in `build/main.tex`.
-  * You need to install `Pandoc` for the first conversion, and `latexmk` for the second.
-  * Another way is to comment out the `latexmk ...` command in the `make.bat`. Then the command only generates tex file. Then, you can happily open the `main.tex` file in your tex editor (e.g. TexStudio or Atom), and then compile tex into pdf by the editor itself.
-  * Personally, I suggest open a command line window, type `make.bat`, and enter. Thus, you can see command outputs and errors.
-* Since the syntax of Markdown and LaTeX are so different, it is possible that the tex file will contain errors and cannot compile. In this case, just look at the tex file, edit your *markdown* file, re-run the `make.bat`, and see whether it becomes better. (Do *not* edit the tex file itself, since it is like an "intermediate build artifact".)
+Then, you can try these commands. If you don't use Windows, just adjust the paths.
+
+```
+git clone git@github.com:GasinAn/markdown2latex.git
+cd markdown2latex/markdown2latex
+python .\markdown2latex.py ..\example\
+```
+
+If everything is OK, you will succeed in converting `..\example\markdown\*.md` to `..\example\build\*.tex`, i.e., `..\example\markdown\hello_world.md` (this document) to `..\example\build\hello_world.tex`.
+
+Finally, you can use any tool(s) you like (for us, `latexmk`) for converting \LaTeX code to PDF.
+
+Now it your turn to replace this document with any Markdown document(s), and start to use *markdown2latex*!
 
 # Sample
 
