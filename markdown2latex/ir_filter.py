@@ -13,20 +13,16 @@ import panflute as pf
 def latex_block(s):
     return pf.RawBlock(s, 'latex')
 
-
 def latex_inline(s):
     return pf.RawInline(s, 'latex')
 
-
 def construct_doc_from_elems(elems, doc):
     return pf.Doc(*elems, metadata=doc.metadata, format=doc.format, api_version=doc.api_version)
-
 
 def doc_to_json_str(doc):
     stream = io.StringIO()
     pf.dump(doc, stream)
     return stream.getvalue()
-
 
 def json_str_to_latex(json_str):
     # https://stackoverflow.com/questions/163542/python-how-do-i-pass-a-string-into-subprocess-popen-using-the-stdin-argument
@@ -35,7 +31,6 @@ def json_str_to_latex(json_str):
                        input=json_str, encoding='utf-8')
     assert p.returncode == 0
     return p.stdout
-
 
 def newlines_double_to_single(latex_str: str):
     in_lines = latex_str.split('\n')
@@ -46,13 +41,11 @@ def newlines_double_to_single(latex_str: str):
         out_lines[-1] += (' ' if out_lines[-1] != '' else '') + in_lines[i]
     return '\n'.join(out_lines)
 
-
 def elem_to_latex_str(elems, doc):
     elems_doc = construct_doc_from_elems(elems, doc)
     json_str = doc_to_json_str(elems_doc)
     latex_str = json_str_to_latex(json_str)
     return latex_str
-
 
 def parse_simple_key_value_pairs(lines: str):
     d = dict()
@@ -63,7 +56,6 @@ def parse_simple_key_value_pairs(lines: str):
             d[m.group(1)] = m.group(2).lstrip()
     return d
 
-
 def register_handlers(dict_cls_func: Dict):
     def core(elem, doc):
         for cls, func in dict_cls_func.items():
@@ -71,7 +63,6 @@ def register_handlers(dict_cls_func: Dict):
                 return func(elem, doc)
 
     return core
-
 
 def parse_and_remove_sibling_config_blockquote(elem, doc):
     blockquote = None
@@ -92,18 +83,15 @@ def parse_and_remove_sibling_config_blockquote(elem, doc):
     # print(f'parse_and_remove_sibling_config_blockquote {blockquote} {latex_str} {kv_pair}')
     return kv_pair
 
-
 def replace_var(template_in: str, d: Dict):
     s = template_in
     for key, value in d.items():
         s = s.replace(f'${key}$', value)
     return s
 
-
 def dict_cond_set(d, k, v):
     if k not in d:
         d[k] = v
-
 
 def handle_elem_with_config_blockquote(elem, doc, f_generate_config, template_tex_str, f_gen_out):
     cfg_provided = parse_and_remove_sibling_config_blockquote(elem, doc)
@@ -111,15 +99,12 @@ def handle_elem_with_config_blockquote(elem, doc, f_generate_config, template_te
     str_gen = replace_var(template_tex_str, cfg_full)
     return [f_gen_out(str_gen)]
 
-
 def read_file(p):
     with open(str(p)) as f:
         return ''.join(f.readlines())
 
-
 def random_str(n):
     return ''.join(random.choices(string.ascii_uppercase, k=n))
-
 
 def list_add_separator(arr, sep):
     ans = []
@@ -128,9 +113,6 @@ def list_add_separator(arr, sep):
             ans.append(sep)
         ans.append(item)
     return ans
-
-
-################################################
 
 def image_generate_config(elem, doc, cfg_provided):
     double_column = bool(cfg_provided.get('double-column', '0'))
@@ -143,7 +125,6 @@ def image_generate_config(elem, doc, cfg_provided):
     dict_cond_set(cfg, 'caption', "")
     print(f'cfg_provided={cfg_provided} cfg={cfg}')
     return cfg
-
 
 def table_generate_config(elem: pf.Table, doc, cfg_provided):
     cfg = dict(**cfg_provided)
@@ -166,19 +147,15 @@ def table_generate_config(elem: pf.Table, doc, cfg_provided):
 
     return cfg
 
-
 def action_remove_elems(elem, doc):
     if elem in doc.global_elem_to_remove:
         return []
 
-
 def prepare(doc):
     doc.global_elem_to_remove = []
 
-
 def finalize(doc):
     del doc.global_elem_to_remove
-
 
 def run(template_dir: Path, input_stream=None, output_stream=None):
     action_main = register_handlers({
