@@ -20,12 +20,12 @@ This document is written in Markdown (and rendered into \LaTeX PDF using this to
 
 First, you need to install python package `pandoc` and `panflute`.
 
-Then, you can try these commands. If you don't use Windows, just adjust the paths.
+Then, you can try these commands.
 
 ```
 git clone git@github.com:GasinAn/markdown2latex.git
 cd markdown2latex/markdown2latex
-python .\markdown2latex.py ..\example\
+python markdown2latex.py ../example/
 ```
 
 If everything is OK, you will succeed in converting `..\example\markdown\*.md` to `..\example\build\*.tex`, i.e., `..\example\markdown\hello_world.md` (this document) to `..\example\build\hello_world.tex`.
