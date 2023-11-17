@@ -30,11 +30,10 @@ if __name__ == '__main__':
         path_output_tex = path_build_dir / f'{path_markdown_md.stem}.tex'
 
         os_system(f'pandoc '
-                  f'--from=markdown '
-                  f'-r markdown-auto_identifiers '
+                  f'-f markdown '
                   f'-t json '
                   f'{path_markdown_md} '
-                  f'> {path_stage_1_json}')
+                  f'-o {path_stage_1_json}')
 
         print('Run: ir_filter')
         ir_filter.run(
@@ -44,11 +43,12 @@ if __name__ == '__main__':
         )
 
         os_system(f'pandoc '
-                  f'--from=json '
+                  f'-f json '
+                  f'-t latex '
                   f'--template={path_template_tex} '
+                  f'--highlight-style=tango '
                   f'{path_stage_2_json} '
-                  f'--output={path_output_tex} '
-                  f'--highlight-style tango ')
+                  f'-o {path_output_tex}')
 
         path_stage_1_json.unlink()
         path_stage_2_json.unlink()
